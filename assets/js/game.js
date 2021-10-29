@@ -12,77 +12,57 @@ var enemyAttack = 12;
 console.log(enemyName, enemyAttack, enemyHealth);
 
 var fight = function() {
-    window.alert("Welcome to Robot Gladiators!")
 
-//Subtract the value of 'playerAttack' from the value of 'enemyHealth' and use that result to update the value in the 'enemyHealth' variable
+    window.alert("Welcome to Robot Gladiators!");
 
-enemyHealth = enemyHealth - playerAttack;
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
-// Log a resulting message to the console so we know that it worked.
+    if (promptFight === "FIGHT" || promptFight === "fight") {
+        enemyHealth = enemyHealth - playerAttack;
+        console.log(
+            playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
+        );
 
-console.log(
-    playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
-)
+        //check enemy health
+        if(enemyHealth <= 0) {
+            window.alert(enemyName + " has died!");
+        }else {
+            window.alert(enemyName + " still has " + enemyHealth + " health left.")
+        }
 
-//check enemy's health
+        //subtract player health
+        playerHealth = playerHealth - enemyAttack;
+        console.log(
+            playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
+        );
+        
+        //check player health
+        if(playerHealth <= 0) {
+            window.alert(playerName + " has died!");
+        }else{
+            window.alert(playerName + " still has " + playerHealth + " health left.");
+        }
 
-if(enemyHealth <= 0) {
-    window.alert(enemyName + " has died!");
-}
-else {
-    window.alert(enemyName + " still has " + enemyHealth + " health left.")
-}
-// Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
 
-playerHealth = playerHealth - enemyAttack;
+    }else if (promptFight === "skip" || promptFight === "SKIP") {
+        //confirm player wants to skip
+        var confirmSkip = window.confirm("Are you sure you'd like to quit?")
+    
+        //if yes(true), leave fight
+        if(confirmSkip) {
+            window.alert(playerName + " has decided to skip this fight. Goodbye!");
+            // subtract money from playerMoney for skipping
+            playerMoney = playerMoney - 2;
+        }
+        //if no (false), ask quiestion again by running fight() again
+        else {
+            fight();
+        }
 
-// Log a resulting message to the console so we know that it worked.
-
-console.log(
-    enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
-)
-
-console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
-
-//check player health
-
-if(playerHealth <= 0) {
-    window.alert(playerName + " has died!");
-}
-else{
-    window.alert(playerName + " still has " + playerHealth + " health left.");
-}
+    } else {
+        window.alert("You need to pick a valid option. Try again!");
+    }
 };
+    
 
-var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-
-//if player choose to fight, then fight
-
-if (promptFight === "FIGHT" || promptFight === "fight") {
-enemyHealth = enemyHealth - playerAttack;
-console.log(
-    playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
-);
-
-}else if (promptFight === "skip" || promptFight === "SKIP") {
-    //confirm player wants to skip
-    var confirmSkip = window.confirm("Are you sure you'd like to quit?")
-
-    //if yes(true), leave fight
-    if(confirmSkip) {
-        window.alert(playerName + " has decided to skip this fight. Goodbye!");
-        // subtract money from playerMoney for skipping
-        playerMoney = playerMoney - 2;
-    }
-    //if no (false), ask quiestion again by running fight() again
-    else {
-        fight();
-    }
-}
-
-
-if (playerHealth > 0) {
-    console.log("Your player is still alive!");
-}
-
-fight();
+    fight();
