@@ -40,6 +40,11 @@ var fightOrSkip = function() {
     return false;
   }
 
+  var isPlayerTurn = true;
+  if(Math.random() > 0.5) {
+      isPlayerTurn = false;
+  }
+
   var fight = function(enemy) {
     // keep track of who goes first
     var isPlayerTurn = true;
